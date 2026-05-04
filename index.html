@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paul Hobson — Geography & Remote Sensing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f5f0e8;
+    --paper2: #ede8dd;
+    --ink: #1c1a15;
+    --ink2: #4a4640;
+    --ink3: #8a847a;
+    --ink4: #b8b2a8;
+    --rule: #d4cec4;
+    --accent: #2d5a8e;
+    --accent2: #1a3a5c;
+    --accent-light: #e8f0f8;
+    --red: #8b2020;
+    --serif: 'Libre Baskerville', Georgia, serif;
+    --mono: 'IBM Plex Mono', 'Courier New', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper2);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  /* Page container — like a printed document */
+  .page {
+    max-width: 820px;
+    margin: 0 auto;
+    background: var(--paper);
+    min-height: 100vh;
+    border-left: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+    position: relative;
+  }
+
+  /* Header */
+  header {
+    padding: 64px 72px 48px;
+    border-bottom: 2px solid var(--ink);
+    position: relative;
+  }
+
+  .header-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--ink3);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  header h1 {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+
+  header h1 em {
+    font-weight: 400;
+    font-style: italic;
+    color: var(--ink2);
+    font-size: 28px;
+    display: block;
+    margin-top: 4px;
+  }
+
+  .header-tagline {
+    margin-top: 20px;
+    font-size: 15px;
+    color: var(--ink2);
+    line-height: 1.6;
+    max-width: 520px;
+    font-style: italic;
+  }
+
+  .header-links {
+    margin-top: 24px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .header-links a {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s;
+  }
+
+  .header-links a:hover { border-color: var(--accent); }
+
+  /* Corner stamp */
+  .corner-stamp {
+    position: absolute;
+    top: 64px;
+    right: 72px;
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink3);
+    line-height: 1.8;
+  }
+
+  .corner-stamp .institution {
+    font-size: 11px;
+    color: var(--ink2);
+    font-weight: 500;
+  }
+
+  /* Nav */
+  nav {
+    padding: 0 72px;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  nav a {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink3);
+    text-decoration: none;
+    padding: 14px 20px 12px;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+
+  nav a:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+
+  nav a:first-child { padding-left: 0; }
+
+  /* Main content */
+  main {
+    padding: 0 72px 80px;
+  }
+
+  /* Section */
+  section {
+    padding: 48px 0 0;
+    border-top: 1px solid var(--rule);
+    margin-top: 48px;
+  }
+
+  section:first-child { margin-top: 0; border-top: none; padding-top: 48px; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .section-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink4);
+    letter-spacing: 0.1em;
+    min-width: 32px;
+  }
+
+  h2 {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    font-family: var(--mono);
+  }
+
+  /* About */
+  .about-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--ink2);
+    max-width: 600px;
+  }
+
+  .about-text p + p { margin-top: 16px; }
+
+  .about-text strong { color: var(--ink); font-weight: 700; }
+
+  /* Skills grid */
+  .skills-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 40px;
+  }
+
+  .skill-category {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .skill-cat-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--ink3);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .skill-item {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink2);
+    line-height: 1.5;
+  }
+
+  /* Project cards */
+  .project {
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .project:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .project-header {
+    margin-bottom: 16px;
+  }
+
+  .project-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--ink4);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .project h3 {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+
+  .project-location {
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink3);
+    font-family: var(--mono);
+  }
+
+  /* STAR layout */
+  .star-grid {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 10px 20px;
+    margin: 16px 0;
+  }
+
+  .star-key {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+    padding-top: 2px;
+    font-weight: 500;
+  }
+
+  .star-val {
+    font-size: 14px;
+    color: var(--ink2);
+    line-height: 1.65;
+  }
+
+  .project-tools {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tool-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    padding: 3px 8px;
+    border: 1px solid var(--rule);
+    color: var(--ink3);
+    border-radius: 1px;
+  }
+
+  /* Publications */
+  .pub-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .pub {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 0 16px;
+  }
+
+  .pub:last-child { border-bottom: none; }
+
+  .pub-year {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink4);
+    padding-top: 2px;
+  }
+
+  .pub-content {}
+
+  .pub-title {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+
+  .pub-authors {
+    font-size: 12px;
+    color: var(--ink3);
+    font-style: italic;
+    margin-bottom: 3px;
+    line-height: 1.4;
+  }
+
+  .pub-authors strong {
+    color: var(--ink2);
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  .pub-venue {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--ink4);
+  }
+
+  .pub-type {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    padding: 2px 6px;
+    border: 1px solid var(--rule);
+    color: var(--ink4);
+    margin-left: 6px;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+  }
+
+  .pub-type.conf { border-color: var(--accent); color: var(--accent); }
+
+  /* Citations callout */
+  .citations-box {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    padding: 14px 18px;
+    margin-bottom: 28px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent2);
+    line-height: 1.7;
+  }
+
+  .citations-box strong {
+    font-size: 18px;
+    font-weight: 500;
+    display: inline-block;
+    margin-right: 4px;
+  }
+
+  /* Teaching */
+  .teaching-item {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0 20px;
+  }
+
+  .teaching-item:last-child { border-bottom: none; }
+
+  .course-code {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink3);
+    letter-spacing: 0.06em;
+    padding-top: 2px;
+  }
+
+  .course-desc {
+    font-size: 14px;
+    color: var(--ink2);
+    line-height: 1.6;
+  }
+
+  .course-desc strong {
+    display: block;
+    color: var(--ink);
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+
+  /* Awards & service */
+  .award-item {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 0 16px;
+  }
+
+  .award-item:last-child { border-bottom: none; }
+
+  .award-year {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink4);
+    padding-top: 2px;
+  }
+
+  .award-content {}
+
+  .award-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .award-desc {
+    font-size: 13px;
+    color: var(--ink3);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* Footer */
+  footer {
+    border-top: 2px solid var(--ink);
+    padding: 32px 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  footer p {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--ink4);
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .page > * {
+    animation: fadeUp 0.4s ease both;
+  }
+
+  header { animation-delay: 0s; }
+  nav    { animation-delay: 0.05s; }
+  main   { animation-delay: 0.1s; }
+
+  /* Responsive */
+  @media (max-width: 680px) {
+    header, main, nav, footer { padding-left: 24px; padding-right: 24px; }
+    header { padding-top: 40px; }
+    header h1 { font-size: 30px; }
+    .corner-stamp { display: none; }
+    .skills-block { grid-template-columns: 1fr; }
+    .star-grid { grid-template-columns: 60px 1fr; }
+    .teaching-item { grid-template-columns: 1fr; gap: 4px; }
+    nav { padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="header-meta">Academic Portfolio · 1992–2000</div>
+    <h1>Paul Hobson
+      <em>Geography &amp; Remote Sensing</em>
+    </h1>
+    <p class="header-tagline">
+      Field scientist and computational geographer. I measure things in the world — glacier mass balance, land surface reflectance, soil hydrochemistry — then build the models that make sense of them from orbit.
+    </p>
+    <div class="header-links">
+      <a href="https://www.researchgate.net/profile/Paul-Hobson">ResearchGate</a>
+      <a href="mailto:p.hobson@swansea.ac.uk">p.hobson@swansea.ac.uk</a>
+      <a href="#publications">15 publications · 3,906 citations · h-index 7</a>
+    </div>
+    <div class="corner-stamp">
+      <span class="institution">University of Wales Swansea</span><br>
+      Department of Geography<br>
+      PhD Researcher &amp; Tutor<br>
+      1995–2000
+    </div>
+  </header>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#research">Research</a>
+    <a href="#projects">Projects</a>
+    <a href="#publications">Publications</a>
+    <a href="#teaching">Teaching</a>
+    <a href="#service">Service</a>
+  </nav>
+
+  <main>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2>About</h2>
+      </div>
+      <div class="about-text">
+        <p>
+          I'm a physical geographer with a particular interest in how the Earth's surface interacts with electromagnetic radiation — from the spectrometer readings I take lying in a New Mexico grassland to the satellite pixels those readings eventually help calibrate. My undergraduate work at <strong>Manchester</strong> ranged across GIS, remote sensing, glaciology, hydrochemistry, soil science, and economic geography: the full width of a discipline that refuses to stay indoors.
+        </p>
+        <p>
+          My doctoral research at <strong>Swansea</strong>, supervised by M.J. Barnsley, sits at the intersection of satellite radiometry and biophysical modelling. I work with data from <strong>POLDER on ADEOS</strong> and <strong>MODIS on Terra</strong> — instruments that were either newly launched or still in development when I started — inverting bidirectional reflectance distribution function (BRDF) models to retrieve land surface albedo and vegetation canopy properties at continental scale. The field campaigns in <strong>Norfolk</strong> and <strong>New Mexico</strong> are where I go to check whether the models are telling the truth.
+        </p>
+        <p>
+          I care about the gap between what satellites see and what is actually on the ground. Closing that gap requires both a spectrometer and a working knowledge of radiative transfer physics. I try to be useful at both ends.
+        </p>
+      </div>
+    </section>
+
+    <!-- RESEARCH -->
+    <section id="research">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2>Research focus</h2>
+      </div>
+      <div class="skills-block">
+        <div class="skill-category">
+          <div class="skill-cat-label">Remote sensing</div>
+          <span class="skill-item">BRDF modelling &amp; inversion</span>
+          <span class="skill-item">Biophysical parameter retrieval</span>
+          <span class="skill-item">Land surface albedo</span>
+          <span class="skill-item">Vegetation canopy structure (LAI, FAPAR)</span>
+          <span class="skill-item">POLDER / ADEOS · MODIS / Terra</span>
+          <span class="skill-item">CHRIS / PROBA · SPOT-4 VGT</span>
+          <span class="skill-item">Atmospheric correction</span>
+        </div>
+        <div class="skill-category">
+          <div class="skill-cat-label">Field methods</div>
+          <span class="skill-item">Ground-based broadband albedometry</span>
+          <span class="skill-item">Field spectroradiometry (ASD)</span>
+          <span class="skill-item">Glacier mass balance measurement</span>
+          <span class="skill-item">Hydrochemical sampling &amp; analysis</span>
+          <span class="skill-item">Soil science field methods</span>
+          <span class="skill-item">GPS survey</span>
+          <span class="skill-item">3D canopy structure (BPMS)</span>
+        </div>
+        <div class="skill-category">
+          <div class="skill-cat-label">Computing</div>
+          <span class="skill-item">C · Fortran · IDL</span>
+          <span class="skill-item">Tcl/Tk (graphical tools)</span>
+          <span class="skill-item">Early Python · Bash</span>
+          <span class="skill-item">Linux · Solaris</span>
+          <span class="skill-item">ENVI · ERDAS Imagine</span>
+          <span class="skill-item">Arc/Info · Idrisi</span>
+        </div>
+        <div class="skill-category">
+          <div class="skill-cat-label">Spatial analysis</div>
+          <span class="skill-item">GIS (Arc/Info, Idrisi)</span>
+          <span class="skill-item">Digital elevation modelling</span>
+          <span class="skill-item">Spatial variability analysis</span>
+          <span class="skill-item">Land use / land cover classification</span>
+          <span class="skill-item">Geostatistics</span>
+          <span class="skill-item">Environmental modelling</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h2>Projects</h2>
+      </div>
+
+      <!-- Project 1: MODIS BRDF -->
+      <div class="project">
+        <div class="project-header">
+          <div class="project-meta">PhD Research · 1995–2000 · Core</div>
+          <h3>BRDF inversion for land surface parameter retrieval — POLDER/ADEOS and MODIS</h3>
+          <div class="project-location">Swansea · Norfolk · Jornada del Muerto, New Mexico</div>
+        </div>
+        <div class="star-grid">
+          <span class="star-key">Situation</span>
+          <span class="star-val">MODIS on Terra and POLDER on ADEOS were newly operational instruments capable of observing land surface reflectance across multiple view angles simultaneously — more information than any single-view sensor had ever captured. The theoretical framework for inverting this multi-angle data into physically meaningful surface properties (albedo, leaf area index, fraction of absorbed photosynthetically active radiation) existed but had not been operationalised at global scale. Ground truth data to validate the inversion products was sparse and poorly standardised.</span>
+
+          <span class="star-key">Task</span>
+          <span class="star-val">As a doctoral researcher within the Swansea Earth Observation group led by Prof. M.J. Barnsley, I was responsible for field campaign design and execution, development of validation methodology, and contributing to the inversion algorithm development that fed into what became the operational MODIS BRDF/Albedo product (MOD43).</span>
+
+          <span class="star-key">Action</span>
+          <span class="star-val">I designed and ran field campaigns at two contrasting sites: agricultural Norfolk (heterogeneous, temperate, well-documented) and the Jornada del Muerto semidesert in New Mexico (sparse vegetation, high reflectance, PROVE '97 campaign site). At both, I collected broadband albedo measurements using paired pyranometers, field spectroradiometry, and canopy structural measurements using the BPMS system. I wrote C and IDL code to process raw field data, match it to satellite overpass geometry, and compare ground-derived albedo to MODIS-retrieved values across spatial scales. I also co-developed graphical teaching tools in Tcl/Tk to support optical remote sensing education at Swansea.</span>
+
+          <span class="star-key">Result</span>
+          <span class="star-val">Field data contributed to validation of the first operational MODIS BRDF and albedo science data products, published in <em>Remote Sensing of Environment</em>. Co-authored papers on spatial variability of albedo in semidesert environments and on the potential of next-generation sensors (CHRIS/PROBA, SPOT-4 VGT) for biophysical parameter retrieval. The work sits at 3,906 citations with an h-index of 7 — primarily because the MODIS product papers became reference literature for the remote sensing community.</span>
+        </div>
+        <div class="project-tools">
+          <span class="tool-tag">C</span>
+          <span class="tool-tag">IDL</span>
+          <span class="tool-tag">Fortran</span>
+          <span class="tool-tag">Tcl/Tk</span>
+          <span class="tool-tag">ENVI</span>
+          <span class="tool-tag">ERDAS Imagine</span>
+          <span class="tool-tag">Arc/Info</span>
+          <span class="tool-tag">Linux</span>
+          <span class="tool-tag">Solaris</span>
+          <span class="tool-tag">MODIS / Terra</span>
+          <span class="tool-tag">POLDER / ADEOS</span>
+          <span class="tool-tag">ASD Spectrometer</span>
+        </div>
+      </div>
+
+      <!-- Project 2: Alpine Glacier -->
+      <div class="project">
+        <div class="project-header">
+          <div class="project-meta">Undergraduate Research · 1994 · HE David Travel Bursary</div>
+          <h3>Alpine glacier mass balance and meltwater hydrochemistry</h3>
+          <div class="project-location">Zermatt, Switzerland · University of Manchester Alpine Glacier Project</div>
+        </div>
+        <div class="star-grid">
+          <span class="star-key">Situation</span>
+          <span class="star-val">Alpine glaciers in the 1990s were beginning to show measurable retreat. The Manchester Alpine Glacier Project operated summer field campaigns to track mass balance, proglacial hydrochemistry, and glacial geomorphology in the Zermatt region — one of the most intensively studied glacial environments in Europe.</span>
+
+          <span class="star-key">Task</span>
+          <span class="star-val">Awarded the HE David Travel Bursary for European research, I joined the project as a student field scientist responsible for stake network measurements, meltwater sampling, and basic GIS data capture of surface features.</span>
+
+          <span class="star-key">Action</span>
+          <span class="star-val">Conducted ablation stake readings across the glacier surface at weekly intervals to quantify mass loss. Collected meltwater samples at proglacial stream sites for hydrochemical analysis (major ion chemistry, suspended sediment load). Mapped surface features using early GPS and transferred data to Arc/Info for spatial analysis back in Manchester.</span>
+
+          <span class="star-key">Result</span>
+          <span class="star-val">Contributed field datasets to the broader project record. The experience of standing on a glacier with a tape measure while knowing the physics of what I was measuring shaped how I subsequently approached satellite validation work — the instinct that models need to be checked by someone willing to go and look.</span>
+        </div>
+        <div class="project-tools">
+          <span class="tool-tag">Arc/Info</span>
+          <span class="tool-tag">Idrisi</span>
+          <span class="tool-tag">GPS survey</span>
+          <span class="tool-tag">Field hydrochemistry</span>
+          <span class="tool-tag">Mass balance methods</span>
+        </div>
+      </div>
+
+      <!-- Project 3: Co-op Conference -->
+      <div class="project">
+        <div class="project-header">
+          <div class="project-meta">Public Event · 1994 · Student-Led</div>
+          <h3>Co-operative Conference on Sustainability</h3>
+          <div class="project-location">Manchester · Co-operative Bank sponsorship</div>
+        </div>
+        <div class="star-grid">
+          <span class="star-key">Situation</span>
+          <span class="star-val">In the mid-1990s, sustainability was not yet mainstream academic vocabulary. A group of Manchester geography students wanted to convene a serious public conversation about it — not an internal seminar, but an open, professionally run day conference that could draw academics, practitioners, and the public together.</span>
+
+          <span class="star-key">Task</span>
+          <span class="star-val">As a member of the student organising committee, I was involved in programme development, speaker coordination, and logistics. We secured sponsorship from the Co-operative Bank — one of the few financial institutions in the UK at the time with an explicit ethical policy — to fund the event.</span>
+
+          <span class="star-key">Action</span>
+          <span class="star-val">Coordinated speaker invitations and briefings, managed session scheduling, and contributed to the public-facing communications for the event. The conference was open to anyone — deliberately not just for students or academics.</span>
+
+          <span class="star-key">Result</span>
+          <span class="star-val">Several hundred attendees across the day. For a student-organised event with no institutional budget, that was a genuine public reach. It taught me that good ideas about complex systems can draw a crowd if you trust the audience's intelligence.</span>
+        </div>
+        <div class="project-tools">
+          <span class="tool-tag">Event production</span>
+          <span class="tool-tag">External sponsorship</span>
+          <span class="tool-tag">Programme curation</span>
+          <span class="tool-tag">Public communications</span>
+        </div>
+      </div>
+
+      <!-- Project 4: RSS'99 -->
+      <div class="project">
+        <div class="project-header">
+          <div class="project-meta">Conference Organisation · 1999</div>
+          <h3>Remote Sensing Society Annual Conference — RSS'99</h3>
+          <div class="project-location">Cardiff, Wales</div>
+        </div>
+        <div class="star-grid">
+          <span class="star-key">Situation</span>
+          <span class="star-val">The Remote Sensing Society annual conference is the principal UK gathering for the remote sensing research community — academic researchers, satellite operators, government agencies, and commercial users. RSS'99 was hosted in Cardiff.</span>
+
+          <span class="star-key">Task</span>
+          <span class="star-val">As a PhD student within the Swansea Earth Observation group, I contributed to the local organising effort for the conference — the kind of institutional support that makes a conference run without anyone noticing it needs to.</span>
+
+          <span class="star-key">Action</span>
+          <span class="star-val">Involved in logistics, venue coordination, and session support across the conference programme. Also presented research from the MODIS validation work.</span>
+
+          <span class="star-key">Result</span>
+          <span class="star-val">Conference ran successfully. More usefully for me: spending time inside a professional conference as an organiser rather than just an attendee is a different education. You see how a field actually works — what gets discussed in corridors that doesn't make it into papers.</span>
+        </div>
+        <div class="project-tools">
+          <span class="tool-tag">Conference logistics</span>
+          <span class="tool-tag">Programme coordination</span>
+          <span class="tool-tag">Research presentation</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section id="publications">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <h2>Publications</h2>
+      </div>
+
+      <div class="citations-box">
+        <strong>3,906</strong> citations &nbsp;·&nbsp; <strong>7</strong> h-index &nbsp;·&nbsp; <strong>15</strong> research items
+        &nbsp;·&nbsp; ResearchGate Research Interest Score: 1,747
+        <br>Source: ResearchGate, 2026
+      </div>
+
+      <div class="pub-list">
+
+        <div class="pub">
+          <span class="pub-year">2012</span>
+          <div class="pub-content">
+            <div class="pub-title">Building a data governance model for learning analytics</div>
+            <div class="pub-authors">Sabine Graf, Cindy Ives, L. Lockyer, <strong>Paul Hobson</strong> et al. · Doug Clow</div>
+            <div class="pub-venue">Article</div>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="pub-year">2002</span>
+          <div class="pub-content">
+            <div class="pub-title">First operational BRDF, albedo nadir reflectance products from MODIS <span class="pub-type">journal</span></div>
+            <div class="pub-authors">Crystal B. Schaaf, Feng Gao, Alan H. Strahler, <strong>Paul Hobson</strong> et al. · David Roy</div>
+            <div class="pub-venue">Remote Sensing of Environment · November 2002</div>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="pub-year">2002</span>
+          <div class="pub-content">
+            <div class="pub-title">First operational BRDF, albedo nadir reflectance products from MODIS <span class="pub-type">journal</span></div>
+            <div class="pub-authors">Crystal Schaaf, Feng Gao, Alan H Strahler, <strong>Paul Hobson</strong> et al. · David Roy</div>
+            <div class="pub-venue">Remote Sensing of Environment · January 2002</div>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="pub-year">2000</span>
+          <div class="pub-content">
+            <div class="pub-title">On the potential of CHRIS/PROBA for estimating vegetation canopy properties from space <span class="pub-type">journal</span></div>
+            <div class="pub-authors">M.J. Barnsley, Philip Lewis, S. O'Dwyer, <strong>Paul Hobson</strong> et al. · Dan Lobb</div>
+            <div class="pub-venue">Remote Sensing Reviews · December 2000</div>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="pub-year">2000</span>
+          <div class="pub-content">
+            <div class="pub-title">Teaching the principles of optical remote sensing using graphical tools developed in Tcl/Tk <span class="pub-type">journal</span></div>
+            <div class="pub-authors">M.J. Barnsley, <strong>Paul Hobson</strong></div>
+            <div class="pub-venue">Article · November 2000</div>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="pub-year">2000</span>
+          <div class="pub-content">
+            <div class="pub-title">A comparison of satellite-derived spectral albedos to ground-based broadband albedo measurements modeled to satellite spatial scale for a semidesert landscape <span class="pub-type">journal</span></div>
+            <div class="pub-authors">Wolfgang Lucht, Andrew H. Hyman, Alan H. Strahler, <strong>Paul Hobson</strong> et al. · J.-P. Muller</div>
+            <div class="pub-venue">Remote Sensing of Environment · October 2000</div>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="pub-year">2000</span>
+          <div class="pub-content">
+            <div class="pub-title">Characterizing the spatial variability of broadband albedo in a semidesert environment for MODIS validation <span class="pub-type">journal</span></div>
+            <div class="pub-authors">M.J. Barnsley, <strong>Paul Hobson</strong>, A.H. Hyman et al. · A.H. Strahler</div>
+            <div class="pub-venue">Remote Sensing of Environment · October 2000</div>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="pub-year">2000</span>
+          <div class="pub-content">
+            <div class="pub-title">The Moderate Resolution Imaging Spectroradiometer (MODIS) BRDF and albedo product: preliminary results <span class="pub-type conf">conf</span></div>
+            <div class="pub-authors">Crystal B. Schaaf, Feng Gao, Alan H. Strahler, <strong>Paul Hobson</strong> et al. · Gareth Roberts</div>
+            <div class="pub-venue">IGARSS 2000 · Geoscience and Remote Sensing Symposium · February 2000</div>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="pub-year">2000</span>
+          <div class="pub-content">
+            <div class="pub-title">Estimation of land-surface albedo and biophysical properties using SPOT-4 VGT and semi-empirical BRDF models <span class="pub-type">journal</span></div>
+            <div class="pub-authors">M.J. Barnsley, Tristan Quaife, <strong>Paul Hobson</strong> et al. · W. Lucht</div>
+            <div class="pub-venue">Article</div>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="pub-year">2000</span>
+          <div class="pub-content">
+            <div class="pub-title">The at-launch MODIS BRDF and albedo science data product <span class="pub-type">journal</span></div>
+            <div class="pub-authors">Crystal Schaaf, A. Strahler, W. Lucht, <strong>Paul Hobson</strong> et al.</div>
+            <div class="pub-venue">Article</div>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="pub-year">1998</span>
+          <div class="pub-content">
+            <div class="pub-title">Investigations of the spatial variability of albedo during the Grassland PROVE '97 Jornada field campaign <span class="pub-type conf">conf</span></div>
+            <div class="pub-authors">A.H. Hyman, W. Lucht, M.J. Barnsley, <strong>Paul Hobson</strong> et al. · A.H. Strahler</div>
+            <div class="pub-venue">IGARSS 1998 · Geoscience and Remote Sensing Symposium · August 1998</div>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="pub-year">1998</span>
+          <div class="pub-content">
+            <div class="pub-title">Validation of a manual measurement method for deriving 3D canopy structure using the BPMS <span class="pub-type conf">conf</span></div>
+            <div class="pub-authors">M. Disney, Philip Lewis, R. Knott, <strong>Paul Hobson</strong> et al. · M.J. Barnsley</div>
+            <div class="pub-venue">IGARSS 1998 · Geoscience and Remote Sensing Symposium · August 1998</div>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="pub-year">1996</span>
+          <div class="pub-content">
+            <div class="pub-title">Making sense of sensors <span class="pub-type">journal</span></div>
+            <div class="pub-authors">M. Barnsley, <strong>Paul Hobson</strong></div>
+            <div class="pub-venue">Article · January 1996</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TEACHING -->
+    <section id="teaching">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <h2>Teaching</h2>
+      </div>
+      <div>
+        <div class="teaching-item">
+          <span class="course-code">STAT 101</span>
+          <div class="course-desc">
+            <strong>Statistics for Geographers — Tutor</strong>
+            First-year undergraduate statistics. Descriptive and inferential methods, hypothesis testing, regression, spatial statistics. The course that convinces geographers that numbers are not the enemy.
+          </div>
+        </div>
+        <div class="teaching-item">
+          <span class="course-code">ENVMOD 209</span>
+          <div class="course-desc">
+            <strong>Environmental Modelling for Geographers — Teaching Assistant</strong>
+            Second-year undergraduate environmental modelling. Hydrological models, land surface process models, GIS-based spatial analysis, introduction to scientific computing for geographers. The direct ancestor of the computational geography curriculum I later rebuilt as open educational material.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICE & AWARDS -->
+    <section id="service">
+      <div class="section-header">
+        <span class="section-num">06</span>
+        <h2>Awards &amp; service</h2>
+      </div>
+      <div>
+        <div class="award-item">
+          <span class="award-year">1994</span>
+          <div class="award-content">
+            <div class="award-title">HE David Travel Bursary for European Research</div>
+            <div class="award-desc">Competitive departmental award funding fieldwork participation in the Manchester University Alpine Glacier Project, Zermatt, Switzerland.</div>
+          </div>
+        </div>
+        <div class="award-item">
+          <span class="award-year">1994</span>
+          <div class="award-content">
+            <div class="award-title">Student Committee Member — Co-operative Conference on Sustainability</div>
+            <div class="award-desc">Co-organised a student-led public day conference on sustainability, Manchester. Co-operative Bank sponsorship. Several hundred public attendees. Open to all — not just students or academics.</div>
+          </div>
+        </div>
+        <div class="award-item">
+          <span class="award-year">1994</span>
+          <div class="award-content">
+            <div class="award-title">Volunteer Glaciologist — Manchester University Alpine Glacier Project</div>
+            <div class="award-desc">Field volunteer contributing mass balance measurements, hydrochemical sampling, and geomorphological mapping during summer campaign.</div>
+          </div>
+        </div>
+        <div class="award-item">
+          <span class="award-year">1999</span>
+          <div class="award-content">
+            <div class="award-title">Local Organiser — Remote Sensing Society Annual Conference RSS'99</div>
+            <div class="award-desc">Contributed to organisation and logistics of the principal UK remote sensing research conference, hosted in Cardiff.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Paul Hobson · Geography &amp; Remote Sensing · 1992–2000</p>
+    <p>Built with GitHub Pages · portfolio-in-a-box</p>
+  </footer>
+
+</div>
+</body>
+</html>
