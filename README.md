@@ -5,6 +5,23 @@
 
 ---
 
+---
+
+## See it working — the demo
+
+Before reading the guide, look at a real example.
+
+The `demo/` folder in this repository contains a complete worked portfolio for a Geography and Remote Sensing student, built using the exact Tier 2 approach described below. Two files, side by side:
+
+| File | What it is |
+|---|---|
+| [`demo/README.md`](demo/README.md) | The Markdown source — what you write and commit to your repository |
+| [`demo/index.html`](demo/index.html) | The rendered output — what visitors see at `yourname.github.io` after GitHub Pages applies a theme |
+
+The Markdown file is the template. Read it, copy its structure, replace the content with your own. The HTML file shows you what you're aiming for.
+
+> **Note on the demo content:** The portfolio belongs to a real researcher. The BRDF inversion work, the POLDER/ADEOS and MODIS fieldwork in New Mexico and Norfolk, the 3,906 citations — all real. The point is that a portfolio built this way would have been more useful than a transcript in 1999, and is considerably more useful now.
+
 ## Before you start — set up your GitHub account properly
 
 Everything in this guide is built on GitHub. Five minutes here will pay off across all three tiers.
@@ -16,19 +33,17 @@ Go to [github.com](https://github.com) and sign up. **Your username becomes part
 **Pick something you'd say out loud in a job interview.** The test is simple: imagine reading it aloud to a recruiter. If you'd hesitate, change it.
 
 Good patterns:
- For our student, Tamara Curtains Urania, we might choose:
- 
-- `firstname-lastname` → `tamara-urania`
-- `firstnamelastname` → `tamaraurania`
-- `initial-lastname` → `t-urania`
+- `firstname-lastname` → `mara-chen`
+- `firstnamelastname` → `marachen`
+- `initial-lastname` → `m-chen`
 
 Avoid:
 - Nicknames, gaming handles, or anything from your 2015 Xbox account
-- Numbers that look like birth years (`tamaraurania72`)
+- Numbers that look like birth years (`marachen99`)
 - Underscores (they break some URL parsers and look informal)
 - Anything with humour that doesn't age well — you'll be using this for years
 
-If your name is common and taken, add your field: `tamara-urania-meche` is better than `tamara-urania-2027`.
+If your name is common and taken, add your field: `mara-chen-cheme` is better than `mara-chen-2024`.
 
 > Already have an account with a username you'd rather not put on a CV? You can change it under **Settings → Account → Change username**. Existing links redirect automatically, but update anything you've shared publicly before changing it.
 
@@ -307,4 +322,4 @@ There's no substitute for showing your work. There never was. Start at whichever
 
 ---
 
-*Assembled taking input from the MRU Computer Science Advisory Board. Contributions welcome — open a PR.*
+*Assembled with input from the MRU Computer Science Advisory Board. Contributions welcome — open a PR.*
